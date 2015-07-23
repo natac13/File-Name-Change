@@ -12,6 +12,20 @@ print(os.getcwd())  # check working directory.
 
 
 def pic_file_rename(description, date, execute=False):
+    """Will search in the current directory for picture. that start with the
+    given date which can be any length, maybe year and month or could include
+    the day
+
+    description: A title like name for the group of photo files that are to be
+    labeled together.
+
+    new: modified pic name with index added as well as the last 8 characters,
+    which represent the date the photo was taken.
+
+    Nothing returns, however the photos that match the given date will be
+    stripped of the horrid android index and replaced with a simple 1,2,3,4..,
+    with the date still in the name
+    """
 
     # description is new prefix to file. This is a general title
     # date is a string: the MOST important parameter since it is the search
@@ -20,7 +34,7 @@ def pic_file_rename(description, date, execute=False):
     # returns: nothing
 
     index = 1
-    for pic in os.listdir('.'):
+    for pic in os.listdir('.'):  # current directory
         if pic.startswith(date):
             new = description + pic[:8] + "_" + str(index) + pic[-4:]
             index += 1
