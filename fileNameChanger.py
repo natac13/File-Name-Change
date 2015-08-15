@@ -1,5 +1,6 @@
 import os
 import re
+import sys
 
 
 class FileNameChanger():
@@ -68,22 +69,36 @@ class FileNameChanger():
     which represent the date the photo was taken.
 
     """
+        if(len(os.listdir(self.directory_path)) == 0):
+            print("No files in {} directory.".format(self.directory))
+            sys.exit()
 
         index = 1
-        new = ""
+        # new = ""
 
         for media in os.listdir(self.directory_path):
             if media.startswith(self.search_date):
-                new += self.final_description
-                new += media[:8] + "_"
-                new += str(index)
-                new += media[-4:]
+                new = self.final_description + media[:8] + "_" + str(index) + media[-4:]
+                print("new:  " + new)
+                print("serach:  " + self.search_date)
+                # new += media[:8] + "_"
+                # new += str(index)
+                # new += media[-4:]
                 index += 1
                 if execute:
                     os.rename(media, new)
-                    print("Renaming {0} to {1}".format(media, new))
+                    # print("Renaming {0} to {1}".format(media, new))
                 else:
                     print("Would be renaming {0} to {1}".format(media, new))
-            else:
-                print("There are no files in {0} to match {1}".format(
-                      self.directory_path, self.search_date))
+
+    def dir_content(self):
+        """ Returns a list of files from the directory given when the instance
+        was created.
+
+        Build a list by checking content is a file first.
+        """
+        contents = []
+        contents.extend((f for f in os.listdir(self.directory_path)
+                        if os.path.isfile(f)))
+        contents = "\n".join(contents)  # string with \n separators.
+        return contents

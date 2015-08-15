@@ -1,10 +1,17 @@
 #!/usr/bin/python3
+#
+# this is not working since it is for some reason copying the old name and appeding
+# the new one
 from fileNameChanger import FileNameChanger
 import os
 
 # get the directory where the files are located
-directoy = input("Directory?   --->   ")
-obj = FileNameChanger(directoy)
+directory = input("Directory?   --->   ")
+obj = FileNameChanger(directory)
+print("\nContents of {}.".format(obj.directory))
+print()
+print(obj.dir_content())
+print()
 
 # get the new common name for the files.
 description = input("What is the new common name for these files? Ex. "
@@ -30,4 +37,4 @@ else:
           "program")
 
 
-print(os.getcwd())
+
